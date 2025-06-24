@@ -6,7 +6,33 @@ Questo repository è stato perfezionato per offrire un'esperienza di installazio
 
 ---
 
-## Installazione One-Liner (Metodo Definitivo)
+## Installazione Zero-to-Hero (Metodo Definitivo)
+
+Questa sezione descrive come eseguire un'installazione **completa e automatizzata** di Arch Linux, partendo da zero e arrivando a un sistema completamente ottimizzato.
+
+### Prerequisiti
+- Una chiavetta USB con l'immagine di avvio di Arch Linux.
+- Una connessione a internet funzionante sul computer di destinazione.
+- Il repository `ArchLegion2` caricato sul tuo account GitHub.
+
+### Procedura
+
+1.  **Avvia dalla Live USB:** Esegui il boot del Lenovo Legion Y520 dalla chiavetta USB di Arch Linux.
+
+2.  **Esegui `archinstall` con il Profilo Remoto:** Una volta nella shell della live, esegui questo singolo comando. Scaricherà il profilo di installazione direttamente dal tuo repository GitHub e lo userà per orchestrare l'intera installazione.
+
+    ```bash
+    archinstall --config https://raw.githubusercontent.com/CiroAutuori/ArchLegion2/main/install.json --creds ./creds.json
+    ```
+    Ti verrà chiesto di inserire la password per il tuo utente e per la crittografia del disco. Queste credenziali verranno salvate temporaneamente in `creds.json`.
+
+3.  **Rilassati:** Lo script `archinstall` partizionerà il disco, installerà il sistema base, i pacchetti, l'ambiente grafico e, come passo finale, eseguirà lo script `bootstrap.sh` dal repository, applicando tutte le nostre ottimizzazioni personalizzate.
+
+4.  **Riavvia nel Tuo Nuovo Sistema:** Al termine, riavvia il computer. Ti ritroverai in un sistema Arch Linux perfettamente configurato e ottimizzato.
+
+---
+
+## Installazione Post-Install (Metodo Alternativo)
 
 Apri un terminale su un'installazione di Arch Linux con accesso a internet ed esegui questo comando. Lo script si occuperà di tutto: dall'installazione dei pacchetti all'applicazione delle configurazioni più raffinate.
 
@@ -33,6 +59,12 @@ bash <(curl -sSL https://raw.githubusercontent.com/CiroAutuori/ArchLegion2/main/
 ---
 
 ## Dettaglio delle Ottimizzazioni (Manuale Tecnico)
+
+**Cosa viene installato e configurato?**
+- **Sistema Base Ottimizzato:** Tutte le modifiche a basso livello per CPU, GPU, I/O e gestione memoria.
+- **Ambiente Desktop XFCE:** Un ambiente desktop leggero e performante.
+- **Applicazioni Essenziali:** Chrome, VS Code, Docker, LibreOffice, Spotify, Telegram e altre utility.
+- **Tema e Shell:** Il moderno tema WhiteSur GTK e la potente shell Zsh con Oh My Zsh e Powerlevel10k, tutto preconfigurato.
 
 Questa sezione documenta in dettaglio ogni modifica apportata dallo script di installazione.
 

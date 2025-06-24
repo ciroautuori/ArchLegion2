@@ -45,7 +45,7 @@ fi
 
 # --- Installazione Pacchetti dall'AUR (yay) ---
 log "Installazione dei pacchetti dall'AUR (undervolt, extremecooling4linux)..."
-sudo -u "$TARGET_USER" yay -S --noconfirm --needed undervolt extremecooling4linux
+sudo -u "$TARGET_USER" yay -S --noconfirm --needed undervolt extremecooling4linux anydesk-bin whatsdesk-bin telegram-desktop-bin spotify visual-studio-code-bin xfce4-docklike-plugin
 
 # --- Applicazione delle Configurazioni ---
 log "Applicazione delle configurazioni di sistema..."
@@ -68,6 +68,38 @@ systemctl start cpupower.service
 systemctl enable undervolt.service
 systemctl start undervolt.service
 log "Servizi systemd abilitati e avviati."
+
+# --- Configurazione Post-Installazione ---
+
+log "Installazione del tema GTK WhiteSur..."
+sudo -u "$TARGET_USER" bash -c "git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git /tmp/WhiteSur-gtk-theme --depth=1 && cd /tmp/WhiteSur-gtk-theme && ./install.sh -o solid -i arch"
+rm -rf /tmp/WhiteSur-gtk-theme
+log "Tema WhiteSur installato."
+
+log "Configurazione di Flatpak..."
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+log "Remote Flathub aggiunto."
+
+log "Configurazione di Zsh, Oh My Zsh e Powerlevel10k..."
+chsh -s $(which zsh) "$TARGET_USER"
+log "Zsh impostata come shell predefinita per $TARGET_USER."
+
+ZSH_CUSTOM_DIR="$USER_HOME/.oh-my-zsh/custom"
+sudo -u "$TARGET_USER" bash -c '
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"\" --unattended"
+fi
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM_DIR:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM_DIR:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM_DIR:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+'
+log "Oh My Zsh, tema e plugin installati."
+
+ZSHRC_FILE="$USER_HOME/.zshrc"
+sudo -u "$TARGET_USER" bash -c "sed -i 's/^ZSH_THEME=.*/ZSH_THEME=\"powerlevel10k\/powerlevel10k\"/' $ZSHRC_FILE"
+sudo -u "$TARGET_USER" bash -c "sed -i 's/^plugins=.*/plugins=(git docker docker-compose sudo zsh-autosuggestions zsh-syntax-highlighting)/' $ZSHRC_FILE"
+log "Configurazione .zshrc applicata."
+
 
 # --- Messaggio Finale ---
 log "****************************************************************"
