@@ -1,0 +1,67 @@
+{
+    "__comment__": "ArchInstall configuration for ArchLegion2. Users should review and edit this file before running the installer.",
+    "hostname": "archlegion",
+    "username": "legion",
+    "password": "changeme",
+    "disk_layout": {
+        "__comment__": "This configures the entire disk. For dual-boot, manual partitioning is still recommended.",
+        "/dev/nvme0n1": {
+            "wipe": true,
+            "partitions": [
+                {
+                    "type": "efi",
+                    "size": "512M",
+                    "mountpoint": "/boot/efi"
+                },
+                {
+                    "type": "swap",
+                    "size": "16G",
+                    "mountpoint": "[SWAP]"
+                },
+                {
+                    "type": "ext4",
+                    "size": "100G",
+                    "mountpoint": "/"
+                },
+                {
+                    "type": "ext4",
+                    "size": "100%",
+                    "mountpoint": "/home"
+                }
+            ]
+        }
+    },
+    "bootloader": "grub-install",
+    "kernels": ["linux", "linux-headers"],
+    "packages": [
+        "networkmanager",
+        "grub",
+        "efibootmgr",
+        "os-prober",
+        "nvidia-dkms",
+        "cpupower",
+        "git",
+        "nano"
+    ],
+    "profile": {
+        "path": "/usr/lib/python3.11/site-packages/archinstall/profiles/desktop.py",
+        "settings": {
+            "gfx_driver": "NVIDIA (proprietary)",
+            "greeter": "sddm",
+            "profile_config": {
+                "desktop_env": "kde"
+            }
+        }
+    },
+    "audio": "pipewire",
+    "locale": "en_US.UTF-8",
+    "timezone": "UTC",
+    "services": ["NetworkManager", "sddm"],
+    "users": [
+        {
+            "username": "legion",
+            "password": "changeme",
+            "sudo": true
+        }
+    ]
+}

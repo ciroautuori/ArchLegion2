@@ -1,0 +1,10 @@
+[Configuration]
+FontName=Noto Mono 10
+MiscAlwaysShowTabs=FALSE
+MiscBell=FALSE
+ScrollingLines=10000
+BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
+BackgroundDarkness=0.85
+
+[Palette]
+ColorPalette=#383c4a;#e06c75;#98c379;#e5c07b;#61afef;#c678dd;#56b6c2;#abb2bf;#4b5263;#e06c75;#98c379;#e5c07b;#61afef;#c678dd;#56b6c2;#ffffff

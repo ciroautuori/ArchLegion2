@@ -1,0 +1,15 @@
+[Unit]
+Description=Apply undervolt settings on boot and resume
+After=suspend.target
+After=hibernate.target
+After=hybrid-sleep.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/ciroautuori/.local/bin/undervolt --core -125 --cache -125
+
+[Install]
+WantedBy=multi-user.target
+WantedBy=suspend.target
+WantedBy=hibernate.target
+WantedBy=hybrid-sleep.target

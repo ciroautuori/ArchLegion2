@@ -1,0 +1,91 @@
+# Sway configuration for ArchLegion2
+#
+# Your default modifier key is the Super (Windows) key.
+#
+# Use `man 5 sway` for a complete reference.
+
+### Variables
+set $mod Mod4
+set $terminal foot
+set $menu wofi --show drun
+
+### Appearance
+font pango:Noto Sans 10
+
+default_border pixel 2
+default_floating_border pixel 2
+
+# Gaps
+set $gaps_inner 10
+set $gaps_outer 5
+gaps inner $gaps_inner
+gaps outer $gaps_outer
+
+# Colors (Arc-Dark inspired)
+# class                 border  bground text    indicator child_border
+client.focused          #5294e2 #2f343f #ffffff #5294e2   #5294e2
+client.unfocused        #353a42 #2f343f #888888 #484c51   #353a42
+client.focused_inactive #353a42 #2f343f #888888 #484c51   #353a42
+client.urgent           #e06c75 #e06c75 #ffffff #e06c75   #e06c75
+
+### Keybindings
+# Launching applications
+bindsym $mod+Return exec $terminal
+bindsym $mod+d exec $menu
+bindsym $mod+Shift+q kill
+
+# Focus and movement
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+
+# Layout modes
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Floating windows
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+# Resizing
+mode "resize" {
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# System controls
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+### Startup applications
+exec swaybg -i /usr/share/backgrounds/archlinux/arch-wallpaper.jpg -m fill
+exec waybar
+
+### Input configuration
+input * {
+    xkb_layout us
+}
+
+include /etc/sway/config.d/*
