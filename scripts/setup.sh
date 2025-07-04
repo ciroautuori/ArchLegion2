@@ -21,10 +21,11 @@ if [[ $EUID -ne 0 ]]; then
    error "Questo script deve essere eseguito come root. Usa 'sudo bash ./setup.sh'"
 fi
 
-TARGET_USER=${SUDO_USER:-$(whoami)}
-if [ "$TARGET_USER" == "root" ]; then
-    error "Questo script non deve essere eseguito direttamente dall'utente root. Usa 'sudo' da un utente normale."
-fi
+# TARGET_USER=${SUDO_USER:-$(whoami)}
+# if [ "$TARGET_USER" == "root" ]; then
+#     error "Questo script non deve essere eseguito direttamente dall'utente root. Usa 'sudo' da un utente normale."
+# fi
+TARGET_USER=${SUDO_USER}
 USER_HOME=$(eval echo ~$TARGET_USER)
 log "Script eseguito per l'utente: $TARGET_USER"
 
