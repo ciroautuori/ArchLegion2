@@ -88,7 +88,7 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 log "Remote Flathub aggiunto."
 
 log "Configurazione di Zsh, Oh My Zsh e Powerlevel10k..."
-chsh -s $(which zsh) "$TARGET_USER"
+chsh -s /usr/bin/zsh "$TARGET_USER"
 log "Zsh impostata come shell predefinita per $TARGET_USER."
 
 sudo -u "$TARGET_USER" bash -c '
