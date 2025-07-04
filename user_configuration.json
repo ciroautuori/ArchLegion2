@@ -26,6 +26,7 @@
                             "space_cache=v2"
                         ],
                         "mountpoint": "/",
+                        "start": "0%",
                         "size": "100%",
                         "status": "create",
                         "type": "primary"
