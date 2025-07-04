@@ -72,7 +72,7 @@ log "Servizi systemd abilitati e avviati."
 # --- Configurazione Post-Installazione ---
 
 log "Installazione del tema GTK WhiteSur..."
-sudo -u "$TARGET_USER" bash -c "git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git /tmp/WhiteSur-gtk-theme --depth=1 && cd /tmp/WhiteSur-gtk-theme && ./install.sh -o solid -i arch"
+sudo -u "$TARGET_USER" bash -c "rm -rf /tmp/WhiteSur-gtk-theme && git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git /tmp/WhiteSur-gtk-theme --depth=1 && cd /tmp/WhiteSur-gtk-theme && ./install.sh -o solid --shell -i arch"
 rm -rf /tmp/WhiteSur-gtk-theme
 log "Tema WhiteSur installato."
 
@@ -84,14 +84,40 @@ log "Configurazione di Zsh, Oh My Zsh e Powerlevel10k..."
 chsh -s $(which zsh) "$TARGET_USER"
 log "Zsh impostata come shell predefinita per $TARGET_USER."
 
-ZSH_CUSTOM_DIR="$USER_HOME/.oh-my-zsh/custom"
 sudo -u "$TARGET_USER" bash -c '
+ZSH_CUSTOM_INNER=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
+
+# Install Oh My Zsh if not installed
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    echo "Installing Oh My Zsh..."
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"\" --unattended"
+else
+    echo "Oh My Zsh is already installed."
 fi
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM_DIR:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM_DIR:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM_DIR:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+# Install Powerlevel10k theme if not installed
+if [ ! -d "${ZSH_CUSTOM_INNER}/themes/powerlevel10k" ]; then
+    echo "Installing Powerlevel10k theme..."
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM_INNER}/themes/powerlevel10k"
+else
+    echo "Powerlevel10k theme is already installed."
+fi
+
+# Install zsh-syntax-highlighting plugin if not installed
+if [ ! -d "${ZSH_CUSTOM_INNER}/plugins/zsh-syntax-highlighting" ]; then
+    echo "Installing zsh-syntax-highlighting plugin..."
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM_INNER}/plugins/zsh-syntax-highlighting"
+else
+    echo "zsh-syntax-highlighting plugin is already installed."
+fi
+
+# Install zsh-autosuggestions plugin if not installed
+if [ ! -d "${ZSH_CUSTOM_INNER}/plugins/zsh-autosuggestions" ]; then
+    echo "Installing zsh-autosuggestions plugin..."
+    git clone https://github.com/zsh-users/zsh-autosuggestions.git "${ZSH_CUSTOM_INNER}/plugins/zsh-autosuggestions"
+else
+    echo "zsh-autosuggestions plugin is already installed."
+fi
 '
 log "Oh My Zsh, tema e plugin installati."
 
