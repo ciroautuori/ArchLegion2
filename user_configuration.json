@@ -27,6 +27,7 @@
                         ],
                         "mountpoint": "/",
                         "size": "100%",
+                        "status": "create",
                         "type": "primary"
                     }
                 ]
