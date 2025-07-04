@@ -10,7 +10,18 @@
                 "device": "/dev/sda",
                 "partitions": [
                     {
-                        "btrfs": {
+                        "mountpoint": "/",
+                        "start": "0%",
+                        "size": "100%",
+                        "status": "create",
+                        "type": "primary",
+                        "filesystem": {
+                            "format": "btrfs",
+                            "mount_options": [
+                                "compress=zstd",
+                                "noatime",
+                                "space_cache=v2"
+                            ],
                             "subvolumes": {
                                 "@": "/",
                                 "@home": "/home",
@@ -18,18 +29,7 @@
                                 "@pkg": "/var/cache/pacman/pkg",
                                 "@.snapshots": "/.snapshots"
                             }
-                        },
-                        "filesystem": "btrfs",
-                        "mount_options": [
-                            "compress=zstd",
-                            "noatime",
-                            "space_cache=v2"
-                        ],
-                        "mountpoint": "/",
-                        "start": "0%",
-                        "size": "100%",
-                        "status": "create",
-                        "type": "primary"
+                        }
                     }
                 ]
             }
