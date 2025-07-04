@@ -4,8 +4,8 @@
     "audio": "pipewire",
     "bootloader": "systemd-boot",
     "disk_config": {
-        "!layout": "system_layout",
-        "blockdevice": "/dev/nvme0n1",
+        "config_type": "system_layout",
+        "blockdevice": "/dev/sda",
         "config": {
             "filesystem": "btrfs",
             "mount_options": [
