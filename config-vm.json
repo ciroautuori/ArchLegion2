@@ -7,6 +7,7 @@
             {
                 "device": "/dev/sda",
                 "wipe": true,
+                "sector_size": 512,
                 "partitions": [
                     {
                         "type": "primary",
