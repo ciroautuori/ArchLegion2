@@ -31,7 +31,7 @@ log "Script eseguito per l'utente: $TARGET_USER"
 
 # --- Installazione Pacchetti di Sistema (pacman) ---
 log "Installazione dei pacchetti di sistema necessari..."
-pacman -S --noconfirm --needed git base-devel cpupower nvidia nvidia-settings python-pipx python-setuptools
+pacman -S --noconfirm --needed git base-devel cpupower nvidia nvidia-settings python-pipx python-setuptools flatpak
 
 # --- Installazione di 'yay' (AUR Helper) ---
 log "Installazione di 'yay' per la gestione dell'AUR..."
