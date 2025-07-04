@@ -20,7 +20,13 @@ yay -S --noconfirm \
 sudo pacman -Syu --noconfirm --needed \
     timeshift gnome-keyring libsecret seahorse
 
-# 3.4 Configurazione GNOME Keyring
+# 3.4 Installazione ottimizzazioni NVIDIA (solo su hardware fisico)
+if ! systemd-detect-virt &> /dev/null; then  # Se non siamo in una VM
+    echo "Rilevato hardware fisico, installo optimus-manager-qt..."
+    yay -S --noconfirm optimus-manager-qt
+fi
+
+# 3.5 Configurazione GNOME Keyring
 sudo sed -i '/^auth.*pam_gnome_keyring.so/!s/^auth.*/auth optional pam_gnome_keyring.so\n&/' /etc/pam.d/login
 sudo sed -i '/^session.*pam_gnome_keyring.so/!s/^session.*/session optional pam_gnome_keyring.so auto_start\n&/' /etc/pam.d/login
 
