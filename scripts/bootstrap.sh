@@ -28,7 +28,7 @@ SETUP_SCRIPT="$CLONE_DIR/scripts/setup.sh"
 if [ -f "$SETUP_SCRIPT" ]; then
     echo "Esecuzione dello script di setup principale..."
     cd "$CLONE_DIR/scripts"
-    sudo bash ./setup.sh # Usiamo bash per essere espliciti
+    bash ./setup.sh # Eseguito come root perché bootstrap.sh è già sotto sudo
 else
     echo "ERRORE: Script di setup non trovato in $SETUP_SCRIPT"
     exit 1
