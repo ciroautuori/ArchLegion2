@@ -4,23 +4,34 @@
     "audio": "pipewire",
     "bootloader": "systemd-boot",
     "disk_config": {
-        "config_type": "system_layout",
-        "blockdevice": "/dev/sda",
-        "config": {
-            "filesystem": "btrfs",
-            "mount_options": [
-                "compress=zstd",
-                "noatime",
-                "space_cache=v2"
-            ],
-            "subvolumes": {
-                "@": "/",
-                "@home": "/home",
-                "@log": "/var/log",
-                "@pkg": "/var/cache/pacman/pkg",
-                "@.snapshots": "/.snapshots"
+        "config_type": "default_layout",
+        "device_modifications": [
+            {
+                "device": "/dev/sda",
+                "partitions": [
+                    {
+                        "btrfs": {
+                            "subvolumes": {
+                                "@": "/",
+                                "@home": "/home",
+                                "@log": "/var/log",
+                                "@pkg": "/var/cache/pacman/pkg",
+                                "@.snapshots": "/.snapshots"
+                            }
+                        },
+                        "filesystem": "btrfs",
+                        "mount_options": [
+                            "compress=zstd",
+                            "noatime",
+                            "space_cache=v2"
+                        ],
+                        "mountpoint": "/",
+                        "size": "100%",
+                        "type": "primary"
+                    }
+                ]
             }
-        }
+        ]
     },
     "hostname": "ArchLegion",
     "kernels": [
