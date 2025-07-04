@@ -8,28 +8,64 @@
         "device_modifications": [
             {
                 "device": "/dev/sda",
+                "wipe": true,
                 "partitions": [
                     {
-                        "mountpoint": "/",
-                        "start": "0%",
-                        "size": "100%",
-                        "status": "create",
                         "type": "primary",
-                        "filesystem": {
-                            "format": "btrfs",
-                            "mount_options": [
-                                "compress=zstd",
-                                "noatime",
-                                "space_cache=v2"
-                            ],
-                            "subvolumes": {
-                                "@": "/",
-                                "@home": "/home",
-                                "@log": "/var/log",
-                                "@pkg": "/var/cache/pacman/pkg",
-                                "@.snapshots": "/.snapshots"
+                        "status": "create",
+                        "start": {
+                            "unit": "MiB",
+                            "value": 1,
+                            "sector_size": null
+                        },
+                        "size": {
+                            "unit": "GiB",
+                            "value": 1,
+                            "sector_size": null
+                        },
+                        "fs_type": "fat32",
+                        "mountpoint": "/boot",
+                        "flags": [
+                            "boot"
+                        ]
+                    },
+                    {
+                        "type": "primary",
+                        "status": "create",
+                        "size": {
+                            "unit": "Percent",
+                            "value": 100,
+                            "sector_size": null
+                        },
+                        "fs_type": "btrfs",
+                        "mountpoint": "/",
+                        "btrfs": [
+                            {
+                                "name": "@",
+                                "mountpoint": "/"
+                            },
+                            {
+                                "name": "@home",
+                                "mountpoint": "/home"
+                            },
+                            {
+                                "name": "@log",
+                                "mountpoint": "/var/log"
+                            },
+                            {
+                                "name": "@pkg",
+                                "mountpoint": "/var/cache/pacman/pkg"
+                            },
+                            {
+                                "name": "@.snapshots",
+                                "mountpoint": "/.snapshots"
                             }
-                        }
+                        ],
+                        "mount_options": [
+                            "compress=zstd",
+                            "noatime",
+                            "space_cache=v2"
+                        ]
                     }
                 ]
             }
