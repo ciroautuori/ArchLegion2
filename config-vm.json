@@ -30,6 +30,10 @@
                     {
                         "type": "primary",
                         "status": "create",
+                        "start": {
+                            "unit": "MiB",
+                            "value": 1025
+                        },
                         "size": {
                             "unit": "Percent",
                             "value": 100
