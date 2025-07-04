@@ -69,10 +69,11 @@ log "Configurazioni utente applicate."
 
 # --- Attivazione Servizi Systemd ---
 log "Attivazione e avvio dei servizi di sistema..."
-systemctl enable cpupower.service
-systemctl start cpupower.service
-systemctl enable undervolt.service
-systemctl start undervolt.service
+# Disabilitato per compatibilità con VM
+# systemctl enable cpupower.service
+# systemctl start cpupower.service
+# systemctl enable undervolt.service
+# systemctl start undervolt.service
 log "Servizi systemd abilitati e avviati."
 
 # --- Configurazione Post-Installazione ---
