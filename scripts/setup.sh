@@ -37,7 +37,7 @@ pacman -S --noconfirm --needed git base-devel cpupower nvidia nvidia-settings py
 log "Installazione di 'yay' per la gestione dell'AUR..."
 if ! command -v yay &> /dev/null; then
     log "yay non trovato. Compilazione e installazione in corso..."
-    sudo -u "$TARGET_USER" bash -c "git clone https://aur.archlinux.org/yay.git /tmp/yay && cd /tmp/yay && makepkg -si --noconfirm"
+    sudo -u "$TARGET_USER" bash -c "rm -rf /tmp/yay && git clone https://aur.archlinux.org/yay.git /tmp/yay && cd /tmp/yay && makepkg -si --noconfirm"
     rm -rf /tmp/yay
     log "yay installato con successo."
 else
