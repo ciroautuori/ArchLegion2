@@ -57,8 +57,13 @@ log "Configurazioni di /etc applicate."
 
 log "Applicazione delle configurazioni utente per $TARGET_USER..."
 mkdir -p "$USER_HOME/.config" "$USER_HOME/.local"
-cp -rT "$CONFIG_DIR/home/ciroautuori/.config/" "$USER_HOME/.config/"
-cp -rT "$CONFIG_DIR/home/ciroautuori/.local/" "$USER_HOME/.local/"
+# Copia le configurazioni utente solo se la directory di origine esiste
+if [ -d "$CONFIG_DIR/home/ciroautuori/.config" ]; then
+    cp -rT "$CONFIG_DIR/home/ciroautuori/.config/" "$USER_HOME/.config/"
+fi
+if [ -d "$CONFIG_DIR/home/ciroautuori/.local" ]; then
+    cp -rT "$CONFIG_DIR/home/ciroautuori/.local/" "$USER_HOME/.local/"
+fi
 chown -R "$TARGET_USER:$TARGET_USER" "$USER_HOME/.config" "$USER_HOME/.local"
 log "Configurazioni utente applicate."
 
